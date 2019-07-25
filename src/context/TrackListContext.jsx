@@ -8,17 +8,11 @@ export const TrackListContext = createContext({});
 export const TrackListProvider = ({ children }) => {
 
   const [state, setState] = useState({
-    tracks: [
-      {
-        name: 'Lost Chameleon - Genesis',
-      },
-      {
-        name: 'The Hipsta - Shaken Soda',
-      },
-      {
-        name: 'Tobu - Such Fun',
-      },
+    track_list: [
+      { track: { track_name: "abc" } },
+      { track: { track_name: "123" } }
     ],
+    heading: "Tpo 10 tracks"
   });
 
   return (

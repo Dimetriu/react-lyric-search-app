@@ -4,14 +4,13 @@ import { TrackListContext } from '../../context/TrackListContext';
 export default function TrackList() {
   const { state, setState } = useContext(TrackListContext);
 
+  const { track_list, heading } = state;
+
   return (
     <>
-      {state.tracks.map(track => (
-        <div className="box">
-          <div className="song-title">
-            {track.name}
-          </div>
-        </div>
+      <p>{heading}</p>
+      {track_list.map(({ track: { track_name } }) => (
+        <p>{track_name}</p>
       ))}
     </>
   );

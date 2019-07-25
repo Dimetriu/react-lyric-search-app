@@ -3,9 +3,9 @@ import React, { lazy, Suspense } from 'react';
 export default function Root() {
   return (
     <Suspense fallback={<p>Loading...</p>}>
-      <Tracks />
+      <TrackList />
     </Suspense>
   );
 }
 
-const Tracks = lazy(() => import('../Tracks'));
+const TrackList = lazy(() => import('../TrackList'));
