@@ -1,7 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TrackListContext } from '../../context/TrackListContext';
 
-export default function Tracks() {
+export default function TrackList() {
+  const { state, setState } = useContext(TrackListContext);
+
   return (
-    <p>Tracklist...</p>
+    <>
+      {state.tracks.map(track => (
+        <div className="box">
+          <div className="song-title">
+            {track.name}
+          </div>
+        </div>
+      ))}
+    </>
   );
 }

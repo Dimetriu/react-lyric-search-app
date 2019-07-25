@@ -1,13 +1,14 @@
 import React, { lazy, Suspense } from 'react';
 import '../../css/App.css';
+import { TrackListProvider } from '../../context/TrackListContext';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 const loading = <div>Loading</div>;
 
 export default function App() {
   return (
-    <Router>
-      <>
+    <TrackListProvider>
+      <Router>
         <Suspense fallback={loading}>
           <Navbar />
 
@@ -15,8 +16,8 @@ export default function App() {
             <Routes />
           </div>
         </Suspense>
-      </>
-    </Router>
+      </Router>
+    </TrackListProvider>
   );
 }
 
