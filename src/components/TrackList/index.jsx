@@ -1,7 +1,10 @@
 import React, {
   useContext,
+  lazy,
+  Suspense
 } from 'react';
 import { TrackListContext } from '../../context/TrackListContext';
+import { Redirect } from 'react-router-dom';
 import Spinner from '../Spinner';
 
 export default function TrackList() {
@@ -14,8 +17,15 @@ export default function TrackList() {
     error,
   } = state;
 
+  const redirectToErrorPage = (
+    <Redirect to={{ pathname: "/internal-server-error" }} />
+  );
+
+
   return (
     <>
+      { error && redirectToErrorPage }
+
       <h3>{heading}</h3>
       {
         isLoading ?
@@ -27,3 +37,4 @@ export default function TrackList() {
     </>
   );
 }
+
