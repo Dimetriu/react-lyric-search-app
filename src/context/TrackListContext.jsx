@@ -33,7 +33,7 @@ export const TrackListProvider = ({ children }) => {
 
   useEffect(() => {
     fetchData()
-  }, []);
+  });
 
   return (
     <TrackListContext.Provider value={{state, setState}}>

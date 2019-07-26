@@ -1,8 +1,8 @@
 import React, {
   useContext,
-  useEffect
 } from 'react';
 import { TrackListContext } from '../../context/TrackListContext';
+import Spinner from '../Spinner';
 
 export default function TrackList() {
   const { state } = useContext(TrackListContext);
@@ -18,6 +18,8 @@ export default function TrackList() {
     <>
       <h3>{heading}</h3>
       {
+        isLoading ?
+        <Spinner isLoading /> :
         track_list.map(({ track: { track_id: id, track_name: name } }) => (
           <p key={id}>{name}</p>
         ))
