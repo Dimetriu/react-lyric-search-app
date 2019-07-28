@@ -1,8 +1,4 @@
-import React, {
-  useContext,
-  lazy,
-  Suspense
-} from 'react';
+import React, { useContext, lazy, Suspense } from 'react';
 import { TrackListContext } from '../../context/TrackListContext';
 import { withRouter } from 'react-router-dom';
 import Spinner from '../Spinner';
@@ -20,21 +16,40 @@ export default function TrackList() {
     error,
   } = state;
 
+  const renderContent = (
+    track_list.map(({
+      track: {
+        artist_name: artist,
+        track_id: id,
+        track_name: name,
+        album_name: album
+      }
+    }) => (
+      <Suspense fallback={<Spinner isLoading={true} />}>
+        <div key={id} className="col-md-6">
+          <Track
+            key={id}
+            artist={artist}
+            name={name}
+            album={album}
+          />
+        </div>
+      </Suspense>
+    ))
+  );
+
   if (error) {
     return <InternalServerError error />;
   } else {
     return (
       <>
-        <h3>{heading}</h3>
-        {
-          isLoading ?
-          <Spinner isLoading /> :
-          track_list.map(({ track: { track_id: id, track_name: name } }) => (
-            <p key={id}>{name}</p>
-          ))
-        }
+        <h3 className="text-center mb-4">{heading}</h3>
+        <div className="row">
+          {(isLoading && <Spinner isLoading />) || renderContent}
+        </div>
       </>
     );
   }
 }
 
+const Track = lazy(() => import('./Track'));

@@ -3,8 +3,8 @@ import { css } from '@emotion/core';
 import { ClipLoader } from 'react-spinners';
 
 const override = css`
+  position: absolute;
   border-color: red;
-  display: block;
   margin: auto;
 `;
 
