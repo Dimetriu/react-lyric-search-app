@@ -4,8 +4,11 @@ import React, {
   Suspense
 } from 'react';
 import { TrackListContext } from '../../context/TrackListContext';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Spinner from '../Spinner';
+import InternalServerError from '../errors/InternalServerError';
+
+withRouter(InternalServerError);
 
 export default function TrackList() {
   const { state } = useContext(TrackListContext);
@@ -17,24 +20,21 @@ export default function TrackList() {
     error,
   } = state;
 
-  const redirectToErrorPage = (
-    <Redirect to={{ pathname: "/internal-server-error" }} />
-  );
-
-
-  return (
-    <>
-      { error && redirectToErrorPage }
-
-      <h3>{heading}</h3>
-      {
-        isLoading ?
-        <Spinner isLoading /> :
-        track_list.map(({ track: { track_id: id, track_name: name } }) => (
-          <p key={id}>{name}</p>
-        ))
-      }
-    </>
-  );
+  if (error) {
+    return <InternalServerError error />;
+  } else {
+    return (
+      <>
+        <h3>{heading}</h3>
+        {
+          isLoading ?
+          <Spinner isLoading /> :
+          track_list.map(({ track: { track_id: id, track_name: name } }) => (
+            <p key={id}>{name}</p>
+          ))
+        }
+      </>
+    );
+  }
 }
 
